@@ -1,0 +1,108 @@
+/* Main container */
+.chat-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Left Sidebar */
+.sidebar {
+  width: 30%;
+  background: #f1f1f1;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Document Uploader */
+.uploader {
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.uploader input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.uploader button {
+  background: #0078ff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.uploader button:hover {
+  background: #0056cc;
+}
+
+.uploader h2 {
+  font-weight: bold;
+}
+
+
+/* Right Chat Area */
+.chat-area {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat Header */
+.chat-header {
+  background: #0078ff;
+  color: white;
+  padding: 15px;
+  font-size: 18px;
+}
+
+/* Chat Messages */
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+.message {
+  background: #d9f7be;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+/* Chat Input Box */
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  background: white;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.chat-input button {
+  background: #0078ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.chat-input button:hover {
+  background: #0056cc;
+}
