@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import DocumentUploader from "./components/DocumentUploader";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -9,12 +10,7 @@ function App() {
     <div className="chat-container">
       {/*Left Sidebar*/}
       <div className="sidebar">
-        <h2>Contacts</h2>
-        <ul>
-          <li>User 1</li>
-          <li>User 2</li>
-          <li>User 3</li>
-        </ul>
+        <DocumentUploader />
       </div>
 
       {/*Right Chat Area*/}
