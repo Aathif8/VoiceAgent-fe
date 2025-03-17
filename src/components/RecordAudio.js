@@ -75,28 +75,22 @@ const AudioRecorder = () => {
         setMessages((prevMessages) => [
           ...prevMessages,
           {
-            type: "bot",
+            type: "user",
             content: `Transcription: ${transcription}`,
             isAudio: false,
           },
+        ]);
+
+        // Add API's audio response
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { type: "bot", content: botAudioUrl, isAudio: true },
         ]);
 
         // Add API's text response
         setMessages((prevMessages) => [
           ...prevMessages,
           { type: "bot", content: botTextResponse, isAudio: false },
-        ]);
-
-        // Add API's audio response
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { type: "bot", content: botAudioUrl, isAudio: true },
-        ]);
-
-        // Add API's audio response
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { type: "bot", content: botAudioUrl, isAudio: true },
         ]);
       } else {
         console.error("Audio upload failed:", result);
@@ -114,7 +108,7 @@ const AudioRecorder = () => {
       >
         {isRecording ? "Stop Recording" : "Start Recording"}
       </button>
-      <ChatArea messages={messages} />
+      {messages.length > 0 && <ChatArea messages={messages} />}
     </div>
   );
 };
