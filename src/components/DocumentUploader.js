@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function DocumentUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -6,7 +6,9 @@ function DocumentUploader() {
 
   // Handle File selection
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    if (e.target.files) {
+      setSelectedFile(e.target.files[0]);
+    }
   };
 
   // Upload file to API
@@ -41,12 +43,15 @@ function DocumentUploader() {
   };
 
   return (
-    <div className="uploader">
-      <h2>Upload Document Here</h2>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload} disabled={uploading}>
-        {uploading ? "Uploading..." : "Upload"}
-      </button>
+    <div className="uploader-container">
+      {uploading && <div className="overlay">Processing...</div>}
+      <div className="uploader">
+        <h2>Upload Document Here</h2>
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleUpload} disabled={uploading}>
+          {uploading ? "Uploading..." : "Upload"}
+        </button>
+      </div>
     </div>
   );
 }
