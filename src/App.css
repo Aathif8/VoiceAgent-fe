@@ -1,14 +1,15 @@
-/* Main container */
+/* 🌟 Main Chat Container */
 .chat-container {
   display: flex;
   height: 100vh;
   font-family: Arial, sans-serif;
+  background: #f0f2f5;
 }
 
-/* Left Sidebar */
+/* 🌟 Left Sidebar */
 .sidebar {
   width: 30%;
-  background: #f1f1f1;
+  background: #ffffff;
   padding: 20px;
   border-right: 1px solid #ccc;
   display: flex;
@@ -16,12 +17,13 @@
   gap: 20px;
 }
 
-/* Document Uploader */
+/* 📂 Document Uploader */
 .uploader {
   background: white;
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .uploader input {
@@ -46,63 +48,112 @@
   font-weight: bold;
 }
 
-
-/* Right Chat Area */
+/* 🌟 Right Chat Area */
 .chat-area {
-  width: 70%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-/* Chat Header */
-.chat-header {
-  background: #0078ff;
-  color: white;
   padding: 15px;
-  font-size: 18px;
-}
-
-/* Chat Messages */
-.chat-messages {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
+  overflow: auto;
   background: #f9f9f9;
 }
 
-.message {
-  background: #d9f7be;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  width: fit-content;
-}
-
-/* Chat Input Box */
-.chat-input {
-  display: flex;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  background: white;
-}
-
-.chat-input input {
+/* 🏷 Chat Messages */
+.chat-messages {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
+  overflow-y: auto;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chat-input button {
+/* 💬 Message Styling */
+.message {
+  max-width: 75%;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message audio {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px 0;
+}
+
+/* 🧑‍💻 User Messages */
+/* .message.user {
+  align-self: flex-end;
   background: #0078ff;
   color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
+  border-bottom-right-radius: 0;
+} */
+
+/* 🤖 Bot Messages */
+/* .message.bot {
+  align-self: flex-start;
+  background: #e0e0e0;
+  color: #333;
+  border-bottom-left-radius: 0;
+} */
+
+/* 🎵 Audio Messages */
+.message audio {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  margin-top: 10px;
+  border-radius: 4px;
+  outline: none;
 }
 
-.chat-input button:hover {
-  background: #0056cc;
+/* Fix for audio controls in dark message bubbles */
+.message.user audio {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 🎤 Audio Recorder Container */
+.recorder-container {
+  text-align: center;
+  padding: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+
+/* 🎙 Record Button */
+.record-btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+}
+
+/* ✅ Start Recording */
+.record-btn.start {
+  background: #28a745;
+  color: white;
+}
+
+/* 🛑 Stop Recording */
+.record-btn.stop {
+  background: #dc3545;
+  color: white;
+}
+
+/* Hover effect */
+.record-btn:hover {
+  opacity: 0.8;
 }
