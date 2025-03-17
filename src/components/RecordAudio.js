@@ -1,54 +1,42 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import ChatArea from "./ChatArea";
+import { useReactMediaRecorder } from "react-media-recorder";
 
 const AudioRecorder = () => {
-  const [isRecording, setIsRecording] = useState(false);
   const [messages, setMessages] = useState([]); // Store chat messages
-  const mediaRecorderRef = useRef(null);
-  const audioChunksRef = useRef([]);
+  const [isRecording, setIsRecording] = useState(false);
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = mediaRecorder;
-      audioChunksRef.current = [];
+  // Using react-media-recorder for audio recording
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({
+    audio: true,
+    blobPropertyBag: { type: "audio/wav"},
+  });
 
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
-        }
-      };
-
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current, {
-          type: "audio/wav",
-        });
-        const audioUrl = URL.createObjectURL(audioBlob);
-
-        // Add the recorded audio as a message
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { type: "user", content: audioUrl, isAudio: true },
-        ]);
-
-        await uploadAudio(audioBlob); // Upload audio to API
-      };
-
-      mediaRecorder.start();
-      setIsRecording(true);
-    } catch (error) {
-      console.error("Error accessing microphone:", error);
-    }
+  // Start recording
+  const handleStartRecording = () => {
+    setIsRecording(true);
+    startRecording();
   };
 
-  const stopRecording = () => {
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-    }
-  };
+  // Stop recording and upload
+  const handleStopRecording = async () => {
+    stopRecording();
+    setIsRecording(false);
 
+    if(mediaBlobUrl) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "user", content: mediaBlobUrl, isAudio: true },
+      ]);
+
+      // Convert audio URL to Blob and upload
+      const response = await fetch(mediaBlobUrl);
+      const audioBlob = await response.blob();
+      await uploadAudio(audioBlob);
+    }
+  }
+
+  // Upload the recorded audio to the API
   const uploadAudio = async (audioBlob) => {
     try {
       const formData = new FormData();
@@ -103,7 +91,7 @@ const AudioRecorder = () => {
   return (
     <div className="recorder-container">
       <button
-        onClick={isRecording ? stopRecording : startRecording}
+        onClick={isRecording ? handleStopRecording : handleStartRecording}
         className={`record-btn ${isRecording ? "stop" : "start"}`}
       >
         {isRecording ? "Stop Recording" : "Start Recording"}
